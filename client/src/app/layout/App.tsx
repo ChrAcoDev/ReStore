@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import Catalog from "../../features/catalog/Catalog";
+import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import { Container, CssBaseline, createTheme } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
@@ -26,7 +26,7 @@ const App: FC<{}> = () => {
       <CssBaseline />
       <Header darkMode={darkMode} toggleTheme={toggleTheme} />
       <Container>
-        <Catalog />
+        <Outlet />
       </Container>
     </ThemeProvider>
   );
