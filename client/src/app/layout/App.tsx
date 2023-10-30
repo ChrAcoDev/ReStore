@@ -4,27 +4,28 @@ import { FC, useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Header from "./Header";
-import { useStoreContext } from "../context/StoreContext";
-import { getCookie } from "../util/util";
+import { setBasket } from "../../features/basket/basketSlice";
 import agent from "../api/agent";
+import { useAppDispatch } from "../store/configureStore";
+import { getCookie } from "../util/util";
+import Header from "./Header";
 import Loading from "./Loading";
 
 const App: FC<{}> = () => {
-  const { setBasket } = useStoreContext();
+  const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const buyerId = getCookie("buyerId");
     if (buyerId) {
       agent.Basket.get()
-        .then((basket) => setBasket(basket))
+        .then((basket) => dispatch(setBasket(basket)))
         .catch((err) => console.log(err))
         .finally(() => setIsLoading(false));
     } else {
       setIsLoading(false);
     }
-  }, [setBasket]);
+  }, [dispatch]);
 
   const [darkMode, setDarkMode] = useState(false);
   const paletteType = darkMode ? "dark" : "light";

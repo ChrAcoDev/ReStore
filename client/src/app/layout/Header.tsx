@@ -1,18 +1,18 @@
-import { FC } from "react";
+import { ShoppingCart } from "@mui/icons-material";
 import {
   AppBar,
+  Badge,
+  Box,
   IconButton,
   List,
   ListItem,
   Switch,
   Toolbar,
   Typography,
-  Badge,
-  Box,
 } from "@mui/material";
+import { FC } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { ShoppingCart } from "@mui/icons-material";
-import { useStoreContext } from "../context/StoreContext";
+import { useAppSelector } from "../store/configureStore";
 
 const midLinks = [
   { title: "catalog", path: "/catalog" },
@@ -43,7 +43,7 @@ const navStyles = {
 };
 
 const Header: FC<Props> = ({ darkMode, toggleTheme }) => {
-  const { basket } = useStoreContext();
+  const { basket } = useAppSelector((state) => state.basket);
 
   const totalItems = basket?.items.reduce(
     (sum, item) => sum + item.quantity,

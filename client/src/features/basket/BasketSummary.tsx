@@ -1,17 +1,17 @@
 import {
-  TableContainer,
   Paper,
   Table,
   TableBody,
-  TableRow,
   TableCell,
+  TableContainer,
+  TableRow,
 } from "@mui/material";
-import { useStoreContext } from "../../app/context/StoreContext";
 import { BasketItem } from "../../app/models/basket";
+import { useAppSelector } from "../../app/store/configureStore";
 import { currencyFormat } from "../../app/util/util";
 
 export default function BasketSummary() {
-  const { basket } = useStoreContext();
+  const { basket } = useAppSelector((state) => state.basket);
 
   const subtotal =
     (basket &&
